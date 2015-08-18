@@ -23,6 +23,8 @@
 }
 
 - (void)setValue:(nullable id)value forKey:(nonnull NSString *)key{
+    
+    [super setValue:value forKey:key];
 
     if ([key isEqualToString:@"smallphotourl"]) {
      

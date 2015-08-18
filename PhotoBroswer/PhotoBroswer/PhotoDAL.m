@@ -25,7 +25,7 @@
         
     }
     
-    sql =(NSMutableString *) [sql stringByAppendingFormat:@"ORDER BY PHOTOID DESC LIMIT 18;"];
+    sql =(NSMutableString *) [sql stringByAppendingFormat:@"ORDER BY PHOTOID DESC LIMIT 15;"];
     
     NSLog(@"%@",sql);
     

@@ -11,6 +11,7 @@
 #import "LargePhotoController.h"
 #import "UIImageView+WebCache.h"
 #import "SVProgressHUD.h"
+#import "MJRefresh.h"
 
 //#import "SDWebImageManager.h"
 
@@ -41,8 +42,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
     if (_photoArray == nil) {
         
+        //添加一个开始加载数据的遮盖
+        
+        [SVProgressHUD showWithStatus:@"图片正在加载中..."];
+        
         //一开始加载数据maxid为nil
         [Photo loadPhoto:nil andMinid:nil resultBack:^(NSArray *pArray) {
+            
+            //移除遮盖
+            
+            [SVProgressHUD dismiss];
             
             _photoArray = (NSMutableArray *)pArray;
             
@@ -84,6 +93,11 @@ static NSString * const reuseIdentifier = @"Cell";
     flowLayout.sectionInset = UIEdgeInsetsMake(15, 10, 10, 10);
     
     
+    //设置刷新控件
+    
+    [self settingRefreshControl];
+    
+    
     return self;
 
 }
@@ -113,8 +127,78 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void) settingRefreshControl{
 
+    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(downLoadData:)];
+    
+    self.collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(upLoadData:)];
 
 
+}
+
+
+- (void) downLoadData:(id) param{
+
+    NSLog(@"下拉刷新数据");
+    
+    Photo *photo = [_photoArray firstObject];
+    
+    [self loadData:photo.photoid andMinID:nil];
+    
+    
+    
+    
+}
+
+- (void) upLoadData:(id) param{
+
+    NSLog(@"上拉刷新数据");
+
+    Photo *photo = [_photoArray lastObject];
+    
+    [self loadData:nil andMinID:photo.photoid];
+    
+    
+
+}
+
+
+- (void) loadData:(NSString *) maxid andMinID:(NSString *) minid{
+
+    [Photo loadPhoto:maxid andMinid:minid resultBack:^(NSArray *pArray) {
+        
+        
+        //结束刷新状态
+        
+        [self.collectionView.header endRefreshing];
+        
+        [self.collectionView.footer endRefreshing];
+
+        if (pArray == nil) {
+            
+            return;
+        }
+        
+        
+        
+        if (maxid != nil) {
+            
+            NSMutableArray *pMarray = (NSMutableArray *) pArray;
+            
+            [pMarray addObjectsFromArray:_photoArray];
+            
+            
+            
+        }else if (minid != nil){
+        
+            [_photoArray addObjectsFromArray:pArray];
+            
+        }
+        
+        //刷新数据
+        
+        [self.collectionView reloadData];
+        
+        
+    }];
 
 }
 
