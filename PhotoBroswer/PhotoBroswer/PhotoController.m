@@ -13,6 +13,8 @@
 #import "SVProgressHUD.h"
 #import "MJRefresh.h"
 
+#define PhotoCellItemH 120
+
 
 @interface PhotoController ()<UIViewControllerTransitioningDelegate,UIViewControllerAnimatedTransitioning>
 
@@ -70,7 +72,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     CGSize size = [UIScreen mainScreen].bounds.size;
     
-    CGFloat h = 120;
+    CGFloat h = PhotoCellItemH;
     
     CGFloat w = (size.width - 40)/3;
     
