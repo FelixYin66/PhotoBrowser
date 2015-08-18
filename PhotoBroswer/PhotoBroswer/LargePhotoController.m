@@ -20,16 +20,6 @@
 
 @implementation LargePhotoController
 
-
-//- (void)dealloc{
-//
-//    [super dealloc];
-//
-//    
-//    NSLog(@"销毁了");
-//
-//}
-
 - (void)loadView{
  
     [super loadView];

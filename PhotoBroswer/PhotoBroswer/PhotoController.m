@@ -122,7 +122,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
-#warning 刷新控件部署
 #pragma mark 刷新控件设置
 
 - (void) settingRefreshControl{

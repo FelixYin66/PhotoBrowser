@@ -16,5 +16,4 @@
 + (FMDatabaseQueue *) sharedQueue;
 
 
-//+ (void) aaa;
 @end
