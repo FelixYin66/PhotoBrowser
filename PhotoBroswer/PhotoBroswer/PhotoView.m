@@ -32,7 +32,7 @@
     
     _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
-    //设置小菊花剧中显示
+    //设置小菊花居中显示
     
     _indicator.center = self.center;
     
@@ -59,7 +59,7 @@
         
         if (error) {
             
-            NSLog(@"现在图片错误提醒是%@",error);
+            NSLog(@"下载图片图片错误提醒是%@",error);
             
             return ;
         }
@@ -92,18 +92,11 @@
     [self addSubview:_scrollView];
     
     
-    //给图片添加一个Tap手势
-    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClosePhoto)];
     
     [_imgView addGestureRecognizer:tapGesture];
     
-    //注意：imgView用户交互默认是关闭，所以添加手势后需要打开
-    
     _imgView.userInteractionEnabled = YES;
-    
-    
-    //设置scrollView的属性
     
     _scrollView.delegate = self;
     
@@ -144,10 +137,6 @@
         CGFloat y = (_scrollView.frame.size.height - size.height) * 0.5;
         
         _imgView.frame = CGRectMake(0, 0, size.width, size.height);
-        
-        //注意：如果通过设置_imgView的frame的话，不可行  _imgView.frame = CGRectMake(0, y, size.width, size.height);
-        
-        //设置scrollView的内边距,把图片顶下来
         
         _scrollView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0);
     
@@ -193,15 +182,11 @@
 #pragma mark ----代理方法
 
 
-//告诉scrollView缩放谁
-
 - (nullable UIView *)viewForZoomingInScrollView:(nonnull UIScrollView *)scrollView{
 
     return _imgView;
 }
 
-
-//在缩放的时候一直调用此方法
 
 - (void)scrollViewDidZoom:(nonnull UIScrollView *)scrollView{
     
@@ -223,9 +208,6 @@
 //缩放结束后调用
 
 - (void)scrollViewDidEndZooming:(nonnull UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale{
-    
-//    NSLog(@"%@-----%@",NSStringFromCGSize(scrollView.contentSize),NSStringFromCGSize(view.bounds.size));
-    
 
     //此时的view时imgView
     

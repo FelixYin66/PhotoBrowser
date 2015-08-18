@@ -20,7 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    //打开数据库
     [FMDBManager openDBByQueue:@"Photo.db"];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -29,13 +28,8 @@
     
     self.window.rootViewController = cv;
     
-    
-    //设置window为可见，显示在屏幕上
-    
     [self.window makeKeyAndVisible];
     
-    
-//    self.window.backgroundColor = [UIColor whiteColor];
     
     return YES;
 }

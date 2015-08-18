@@ -79,8 +79,6 @@
 //图片缩放时
 
 - (void)photoDidZoom:(CGFloat)scale{
-
-//    NSLog(@"%f",scale);
     
     _scale = scale;
     
@@ -89,13 +87,9 @@
     
     if (scale < 1) {
         
-        //当缩放到0.8时进行交互式转场
-        
         [self startInteractiveTransition:self];
         
     }else{
-    
-        //当在缩放后再放大时，会出现一个白边。。。所以需要回复形变
         
         self.view.transform = CGAffineTransformIdentity;
         
@@ -145,7 +139,6 @@
 #pragma mark ---转场协议方法的实现
 
 
-//UIViewControllerInteractiveTransitioning  只有三个协议方法 控制器交互转场协议方法
 
 - (void)startInteractiveTransition:(nonnull id<UIViewControllerContextTransitioning>)transitionContext{
     
@@ -158,9 +151,8 @@
 }
 
 
-//UIViewControllerContextTransitioning 控制器上下文转场
 
-// The view in which the animated transition should take place.   提供动画转场的View
+// The view in which the animated transition should take place.
 - (nullable UIView *)containerView{
 
 

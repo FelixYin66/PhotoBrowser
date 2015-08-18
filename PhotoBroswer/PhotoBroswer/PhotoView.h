@@ -30,6 +30,7 @@
 @protocol PhotoViewDelegate <NSObject>
 
 //触摸图片时
+
 -(void) tapClosePhoto:(PhotoView *) pView;
 
 //缩放时
